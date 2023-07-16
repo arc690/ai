@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aié</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header Styling */
+    header {
+      background-color: #00bfa5;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .logo {
+      display: inline-block;
+      margin: 0;
+      color: #fff;
+      font-size: 28px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    /* Main Content Styling */
+    main {
+      background-color: #ffffff;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    p {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #00bfa5;
+      color: #fff;
+      padding: 12px 32px;
+      border-radius: 4px;
+      font-size: 24px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #009c84;
+    }
+
+    /* Language Options Styling */
+    .language-options {
+      margin-top: 60px;
+    }
+
+    h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    li {
+      margin: 10px;
+    }
+
+    .language-link {
+      display: inline-block;
+      background-color: #00bfa5;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-size: 20px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .language-link:hover {
+      background-color: #009c84;
+    }
+
+    /* Additional Content Styling */
+    .additional-content {
+      margin-top: 80px;
+      text-align: left;
+    }
+
+    h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background-color: #00bfa5;
+      color: #fff;
+      font-size: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .feature-text {
+      font-size: 20px;
+      color: #555;
+    }
+
+    /* Quiz Styling */
+    .quiz {
+      margin-top: 80px;
+      text-align: left;
+    }
+
+    .quiz-question {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .quiz-options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .quiz-option {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .quiz-option input {
+      margin-right: 10px;
+    }
+
+    /* Testimonials Styling */
+    .testimonials {
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .testimonial {
+      margin-bottom: 40px;
+    }
+
+    .testimonial-text {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .testimonial-author {
+      font-size: 18px;
+      color: #777;
+    }
+
+    /* Special Features Styling */
+    .special-features {
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .feature-box {
+      display: inline-block;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background-color: #00bfa5;
+      color: #fff;
+      font-size: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    .feature-title {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .feature-description {
+      font-size: 18px;
+      color: #555;
+    }
+
+    /* Footer Styling */
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+    .intro-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #00bfa5, rgb(0, 175, 152));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+    }
+    
+    .logo {
+      max-width: 200px;
+      max-height: 200px;
+    }
+    
+    .intro-section.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-section">
+    <img src="your-logo.png" alt="Logo" class="logo">
+  </div>
+  <Script>
+    // Function to hide the intro section after a certain duration
+function hideIntroSection() {
+  const introSection = document.querySelector('.intro-section');
+  introSection.classList.add('hide');
+}
+
+// Hide the intro section after 5 seconds (5000 milliseconds)
+setTimeout(hideIntroSection, 5000);
+
+  </Script>
+  <header>
+    <a href="#" class="logo">
+      <img src="your-logo.png" alt="Aié Logo" style="vertical-align: middle; height: 40px;">
+      
+    </a>
+  </header>
+
+  <main>
+    <h1>Learn Languages with AI</h1>
+    <p>Unlock the power of Aié and embark on a journey of language mastery. Our AI-powered platform offers personalized lessons, cutting-edge technology, and a diverse range of languages to empower you to communicate fluently. 🌐✨</p>
+    <a href="#" class="cta-button">Start Learning Now 🚀</a>
+
+    <div class="language-options">
+      <h3>Choose a Language to Learn:</h3>
+      <ul>
+        <li><a href="https://arc690.github.io/english-quiz/" class="language-link">English</a></li>
+        <li><a href="https://arc690.github.io/Aie/" class="language-link">Hindi</a></li>
+        <li><a href="https://arc690.github.io/spanish-quiz/" class="language-link">Spanish</a></li>
+        <li><a href="https://arc690.github.io/french-quiz/" class="language-link">French</a></li>
+        <li><a href="https://www.example.com/german" class="language-link">German</a></li>
+        <li><a href="https://www.example.com/italian" class="language-link">Italian</a></li>
+        <li><a href="https://www.example.com/japanese" class="language-link">Japanese</a></li>
+        <li><a href="https://www.example.com/chinese" class="language-link">Chinese</a></li>
+        <li><a href="https://www.example.com/russian" class="language-link">Russian</a></li>
+        <li><a href="https://www.example.com/arabic" class="language-link">Arabic</a></li>
+        <li><a href="https://www.example.com/portuguese" class="language-link">Portuguese</a></li>
+        <li><a href="https://www.example.com/dutch" class="language-link">Dutch</a></li>
+        <li><a href="https://www.example.com/swedish" class="language-link">Swedish</a></li>
+        <li><a href="https://www.example.com/korean" class="language-link">Korean</a></li>
+        <li><a href="https://www.example.com/greek" class="language-link">Greek</a></li>
+      </ul>
+
+      <style>
+        /* General Styling */
+    
+        /* ... existing CSS code ... */
+    
+        /* Daily Challenge Styling */
+        .daily-challenge {
+          margin-top: 80px;
+          text-align: center;
+        }
+    
+        .challenge-text {
+          font-size: 24px;
+          color: #333;
+          margin-bottom: 20px;
+        }
+    
+        .challenge-button {
+          display: inline-block;
+          background-color: #00bfa5;
+          color: #fff;
+          padding: 12px 32px;
+          border-radius: 4px;
+          font-size: 20px;
+          text-decoration: none;
+          transition: background 0.3s ease;
+        }
+    
+        .challenge-button:hover {
+          background-color: #009c84;
+        }
+      </style>
+    </head>
+    <body>
+      <!-- ... existing HTML code ... -->
+    
+      <div class="daily-challenge">
+        <h2>Daily Challenge</h2>
+        <p class="challenge-text">Take on a daily language challenge to level up your skills!</p>
+        <a href="#" class="challenge-button">Start Challenge</a>
+      </div>
+    
+      
+
+    <div class="additional-content">
+      <h2>Why Choose Aié?</h2>
+      <div class="feature">
+        <div class="feature-icon">✨</div>
+        <div class="feature-text">Experience AI-powered learning algorithms for personalized lessons tailored to your needs. 💡</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-text">Explore a vast selection of languages from around the world, opening doors to diverse cultures. 🌎🗺️</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔊</div>
+        <div class="feature-text">Improve your pronunciation skills with cutting-edge speech recognition technology. 🎙️🗣️</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-text">Track your progress, earn achievements, and embark on a gamified language learning adventure. 🎮🏅</div>
+      </div>
+    </div>
+
+    <div class="quiz">
+      <h2>Test Your Language Skills</h2>
+      <p class="quiz-question">Translate the following phrase into French:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option">
+          <input type="radio" name="quiz1" id="quiz1-option1">
+          <label for="quiz1-option1">Hello</label>
+        </li>
+        <li class="quiz-option">
+          <input type="radio" name="quiz1" id="quiz1-option2">
+          <label for="quiz1-option2">Goodbye</label>
+        </li>
+        <li class="quiz-option">
+          <input type="radio" name="quiz1" id="quiz1-option3">
+          <label for="quiz1-option3">Thank you</label>
+        </li>
+        <li class="quiz-option">
+          <input type="radio" name="quiz1" id="quiz1-option4">
+          <label for="quiz1-option4">I love you</label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="testimonials">
+      <h2>What Our Learners Say</h2>
+      <div class="testimonial">
+        <p class="testimonial-text">"Aié helped me gain confidence in speaking English fluently. The personalized feedback and interactive lessons made a huge difference!"</p>
+        <p class="testimonial-author">- Sarah, English learner</p>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-text">"Learning Spanish with Aié has been an incredible experience. The engaging content and real-life practice scenarios have made me fall in love with the language!"</p>
+        <p class="testimonial-author">- Juan, Spanish learner</p>
+      </div>
+    </div>
+
+    <div class="special-features">
+      <h2>Special Features</h2>
+      <div class="feature-box">
+        <div class="feature-icon">📚</div>
+        <h3 class="feature-title">Interactive Lessons</h3>
+        <p class="feature-description">Engage in interactive lessons that adapt to your learning style and pace. 📖📝</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">🎙️</div>
+        <h3 class="feature-title">Speech Recognition</h3>
+        <p class="feature-description">Perfect your pronunciation with advanced speech recognition technology. 🗣️🎯</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">🌐</div>
+        <h3 class="feature-title">Cultural Immersion</h3>
+        <p class="feature-description">Immerse yourself in the cultures of the languages you learn through authentic materials and experiences. 🌍🎉</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">Progress Tracking</h3>
+        <p class="feature-description">Track your progress, set goals, and celebrate your achievements along your language learning journey. 📈🏆</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">💬</div>
+        <h3 class="feature-title">Live Conversations</h3>
+        <p class="feature-description">Engage in live conversations with native speakers for practical language practice. 💬🗣️</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">📝</div>
+        <h3 class="feature-title">Writing Practice</h3>
+        <p class="feature-description">Sharpen your writing skills with AI-guided exercises and personalized feedback. ✍️📝</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">🎓</div>
+        <h3 class="feature-title">Certification</h3>
+        <p class="feature-description">Earn language proficiency certificates recognized worldwide upon completion. 🎓🌍</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Aié. All rights reserved.</p>
+  </footer>
+</body>
+</html>
