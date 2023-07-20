@@ -1,728 +1,531 @@
 <!DOCTYPE html>
-<html lang="zh">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Chinese Language Quiz</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aié</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            /* Your styles for the quiz container go here */
-            /* ... */
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #ffffff;
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            animation: slideIn 0.5s ease;
-            max-width: 2000px;
-            width: 1300px;
-            height: 100%;
-            overflow: hidden;
-        }
+    /* Header Styling */
+    header {
+      background-color: #00bfa5;
+      padding: 20px;
+      text-align: center;
+    }
 
-        .intro-section {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, #00bfa5, rgb(0, 175, 152));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 1;
-            transition: opacity 0.5s ease-in-out;
-        }
+    .logo {
+      display: inline-block;
+      margin: 0;
+      color: #fff;
+      font-size: 28px;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
-        .logo {
-            max-width: 200px;
-            max-height: 200px;
-            animation: pulse 1.5s infinite;
-        }
+    /* Main Content Styling */
+    main {
+      background-color: #ffffff;
+      padding: 40px;
+      text-align: center;
+    }
 
-        .intro-section.hide {
-            opacity: 0;
-            pointer-events: none;
-        }
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #333;
+    }
 
-        .question {
-            margin-bottom: 16px;
-            text-align: center;
-        }
+    p {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #555;
+    }
 
-        .emoji {
-            font-size: 48px;
-            margin-top: 8px;
-        }
+    .cta-button {
+      display: inline-block;
+      background-color: #00bfa5;
+      color: #fff;
+      padding: 12px 32px;
+      border-radius: 4px;
+      font-size: 24px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
 
-        .options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 16px;
-            justify-items: center;
-            margin-top: 32px;
-        }
+    .cta-button:hover {
+      background-color: #009c84;
+    }
 
-        .options button {
-            padding: 16px;
-            background-color: #00bfa5;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+    /* Language Options Styling */
+    .language-options {
+      margin-top: 60px;
+    }
 
-        .options button:hover {
-            background-color: #027c6b;
-        }
+    h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #333;
+    }
 
-        .score {
-            font-weight: bold;
-            margin-top: 32px;
-            text-align: center;
-            animation: slideIn 0.5s ease;
-            font-size: 24px;
-        }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-        .character {
-            position: absolute;
-            top: 50%;
-            left: -100px;
-            width: 200px;
-            height: 200px;
-            background-image: url('character.png'); /* Replace with your character image */
-            background-size: cover;
-            animation: fadeIn 1s ease;
-        }
+    li {
+      margin: 10px;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50%);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(-50%);
-            }
-        }
+    .language-link {
+      display: inline-block;
+      background-color: #00bfa5;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-size: 20px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
 
-        .next-button {
-            margin-top: 32px;
-            display: flex;
-            justify-content: center;
-        }
+    .language-link:hover {
+      background-color: #009c84;
+    }
 
-        .next-button button {
-            padding: 16px 32px;
-            background-color: #00bfa5;
-            color: #ffffff;
-            border: none;
-            border-radius: 30px;
-            font-size: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-        }
+    /* Additional Content Styling */
+    .additional-content {
+      margin-top: 80px;
+      text-align: left;
+    }
 
-        .next-button button:hover {
-            background-color: #027c6b;
-        }
+    h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #333;
+    }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-    </style>
+    .feature {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background-color: #00bfa5;
+      color: #fff;
+      font-size: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .feature-text {
+      font-size: 20px;
+      color: #555;
+    }
+
+    /* Quiz Styling */
+    .quiz {
+      margin-top: 80px;
+      text-align: left;
+    }
+
+    .quiz-question {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .quiz-options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .quiz-option {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .quiz-option input {
+      margin-right: 10px;
+    }
+
+    /* Testimonials Styling */
+    .testimonials {
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .testimonial {
+      margin-bottom: 40px;
+    }
+
+    .testimonial-text {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .testimonial-author {
+      font-size: 18px;
+      color: #777;
+    }
+
+    /* Special Features Styling */
+    .special-features {
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .feature-box {
+      display: inline-block;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background-color: #00bfa5;
+      color: #fff;
+      font-size: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    .feature-title {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .feature-description {
+      font-size: 18px;
+      color: #555;
+    }
+
+    /* Footer Styling */
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+    .intro-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #00bfa5, rgb(0, 175, 152));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+    }
+    
+    .logo {
+      max-width: 200px;
+      max-height: 200px;
+    }
+    
+    .intro-section.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Reviews Styling */
+    .reviews {
+      margin-top: 80px;
+      text-align: center;
+    }
+
+    .review-card {
+      background-color: #f9f9f9;
+      padding: 30px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .review-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .review-text {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .review-author {
+      font-size: 18px;
+      color: #777;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="intro-section">
-        <img src="your-logo.png" alt="Logo" class="logo">
+  <div class="intro-section">
+    <img src="your-logo.png" alt="Logo" class="logo">
+  </div>
+
+  <header>
+    <a href="#" class="logo">
+      <img src="your-logo.png" alt="Aié Logo" style="vertical-align: middle; height: 40px;">
+    </a>
+  </header>
+  <Script>
+    // Function to hide the intro section after a certain duration
+function hideIntroSection() {
+  const introSection = document.querySelector('.intro-section');
+  introSection.classList.add('hide');
+}
+
+// Hide the intro section after 5 seconds (5000 milliseconds)
+setTimeout(hideIntroSection, 5000);
+
+  </Script>
+
+  <main>
+    <h1>Learn Languages with AI</h1>
+    <p>Unlock the power of Aié and embark on a journey of language mastery. Our AI-powered platform offers personalized lessons, cutting-edge technology, and a diverse range of languages to empower you to communicate fluently. 🌐✨</p>
+    <a href="#" class="cta-button">Start Learning Now 🚀</a>
+
+    <div class="language-options">
+      <h3>Choose a Language to Learn:</h3>
+      <ul>
+        <li><a href="https://arc690.github.io/english-quiz/" class="language-link">English</a></li>
+        <li><a href="https://arc690.github.io/Aie/" class="language-link">Hindi</a></li>
+        <li><a href="https://arc690.github.io/spanish-quiz/" class="language-link">Spanish</a></li>
+        <li><a href="https://arc690.github.io/french-quiz/" class="language-link">French</a></li>
+        <li><a href="https://arc690.github.io/german-quiz/" class="language-link">German</a></li>
+        <li><a href="https://arc690.github.io/italien-quiz/" class="language-link">Italian</a></li>
+        <li><a href="https://arc690.github.io/japanese-quiz/" class="language-link">Japanese</a></li>
+        <li><a href="https://arc690.github.io/Chinese-quiz/" class="language-link">Chinese</a></li>
+        <li><a href="https://www.example.com/russian" class="language-link">Russian</a></li>
+        
+        <li><a href="https://www.example.com/portuguese" class="language-link">Portuguese</a></li>
+        <li><a href="https://www.example.com/dutch" class="language-link">Dutch</a></li>
+        <li><a href="https://www.example.com/swedish" class="language-link">Swedish</a></li>
+        <li><a href="https://www.example.com/korean" class="language-link">Korean</a></li>
+        
+      </ul>
+    </div>
+    <style>
+      /* ... (existing styles) ... */
+  
+      /* Daily Quiz Styling */
+      .daily-quiz {
+        margin-top: 80px;
+        text-align: center;
+      }
+  
+      .quiz-heading {
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #333;
+      }
+  
+      .quiz-text {
+        font-size: 24px;
+        color: #555;
+        margin-bottom: 20px;
+      }
+  
+      .quiz-emoji {
+        font-size: 48px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ... (existing content) ... -->
+  
+    <div class="daily-quiz">
+      <h2 class="quiz-heading">Daily Language Quiz</h2>
+      <p class="quiz-text">Challenge yourself with a new quiz every day for all languages! 🌟📆</p>
+      <p class="quiz-emoji">🎉🤓🚀</p>
+    </div>
+  
+    <!-- ... (existing content) ... -->
+  
+  </body>
+
+    <div class="additional-content">
+      <h2>Why Choose Aié?</h2>
+      <div class="feature">
+        <div class="feature-icon">✨</div>
+        <div class="feature-text">Experience AI-powered learning algorithms for personalized lessons tailored to your needs. 💡</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-text">Explore a vast selection of languages from around the world, opening doors to diverse cultures. 🌎🗺️</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔊</div>
+        <div class="feature-text">Improve your pronunciation skills with cutting-edge speech recognition technology. 🎙️🗣️</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-text">Track your progress, earn achievements, and embark on a gamified language learning adventure. 🎮🏅</div>
+      </div>
     </div>
 
-    <div class="container">
-        <h1>Chinese Language Quiz</h1>
-        <div class="question">
-            <p id="questionText">What is the Chinese word for 'hello'?</p>
-            <p class="emoji">&#x1F44B;</p>
-        </div>
-        <div class="options">
-            <button onclick="checkAnswer('a')">你好 (Nǐ hǎo)</button>
-            <button onclick="checkAnswer('b')">再见 (Zàijiàn)</button>
-            <button onclick="checkAnswer('c')">谢谢 (Xièxiè)</button>
-            <button onclick="checkAnswer('d')">对不起 (Duìbùqǐ)</button>
-        </div>
-        <p id="scoreText" class="score"></p>
-        <button id="nextButton" class="next-button" onclick="nextQuestion()" style="display: none;">Next</button>
+    <div class="quiz">
+      <h2>Test Your Language Skills</h2>
+      <p class="quiz-question">Translate the following phrase into French:</p>
+      <ul class="quiz-options">
+        <li class="quiz-option">
+          <input type="radio" name="quiz1" id="quiz1-option1">
+          <label for="quiz1-option1">Hello</label>
+        </li>
+        <li class="quiz-option">
+          <input type="radio" name="quiz1" id="quiz1-option2">
+          <label for="quiz1-option2">Goodbye</label>
+        </li>
+        <li class="quiz-option">
+          <input type="radio" name="quiz1" id="quiz1-option3">
+          <label for="quiz1-option3">Thank you</label>
+        </li>
+        <li class="quiz-option">
+          <input type="radio" name="quiz1" id="quiz1-option4">
+          <label for="quiz1-option4">I love you</label>
+        </li>
+      </ul>
     </div>
 
-    <div class="character"></div>
+    <div class="testimonials">
+      <h2>What Our Learners Say</h2>
+      <div class="testimonial">
+        <p class="testimonial-text">"Aié helped me gain confidence in speaking English fluently. The personalized feedback and interactive lessons made a huge difference!"</p>
+        <p class="testimonial-author">- Sarah, English learner</p>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-text">"Learning Spanish with Aié has been an incredible experience. The engaging content and real-life practice scenarios have made me fall in love with the language!"</p>
+        <p class="testimonial-author">- Juan, Spanish learner</p>
+      </div>
+    </div>
 
-    <script>
-        // Function to hide the intro section after a certain duration
-        function hideIntroSection() {
-            const introSection = document.querySelector('.intro-section');
-            introSection.classList.add('hide');
-        }
+    <div class="reviews">
+      <h2>Reviews</h2>
+      <div class="review-card">
+        <p class="review-text">"Aié is an amazing platform. The lessons are fun and interactive, and the AI technology provides personalized guidance that accelerates learning. Highly recommended!"</p>
+        <p class="review-author">- Emily, English learner</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"I have tried many language learning apps, but Aié stands out from the rest. The speech recognition feature helped me improve my pronunciation, and the cultural immersion aspect made the learning experience truly enjoyable."</p>
+        <p class="review-author">- Marco, Italian learner</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"Aié's progress tracking feature is fantastic. It helps me stay motivated and see how far I've come. The gamified approach to learning makes it feel like an adventure rather than a chore."</p>
+        <p class="review-author">- Kim, Korean learner</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"I'm amazed by Aié's interactive lessons. The platform adapts to my learning style and provides real-time feedback. It feels like having a personal language tutor at my fingertips!"</p>
+        <p class="review-author">- Alex, Spanish learner</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"Aié's cultural immersion feature allows me to explore different cultures while learning a new language. It's fascinating to dive into authentic materials and gain a deeper understanding of the language."</p>
+        <p class="review-author">- Sofia, French learner</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"As a beginner in German, I found Aié to be an excellent platform. The step-by-step lessons and clear explanations helped me grasp the basics quickly. I'm excited to continue my language learning journey with Aié!"</p>
+        <p class="review-author">- Max, German learner</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"Aié's writing practice feature has been instrumental in improving my language skills. The AI-guided exercises and detailed feedback have helped me become more confident in expressing myself in a foreign language."</p>
+        <p class="review-author">- Maria, Portuguese learner</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"I can't recommend Aié enough. The platform has made learning a new language an enjoyable part of my daily routine. The variety of languages offered and the quality of the content are exceptional."</p>
+        <p class="review-author">- Oliver, Dutch learner</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"Aié's live conversations feature has given me the opportunity to practice speaking with native speakers. It has tremendously improved my language skills and boosted my confidence in real-life conversations."</p>
+        <p class="review-author">- Emma, French learner</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"I've tried other language learning platforms, but Aié surpasses them all. The platform's AI technology provides targeted lessons and exercises that cater to my individual learning needs."</p>
+        <p class="review-author">- Luca, Italian learner</p>
+      </div>
+    </div>
 
-        // Hide the intro section after 5 seconds (5000 milliseconds)
-        setTimeout(hideIntroSection, 5000);
+    <div class="special-features">
+      <h2>Special Features</h2>
+      <div class="feature-box">
+        <div class="feature-icon">📚</div>
+        <h3 class="feature-title">Interactive Lessons</h3>
+        <p class="feature-description">Engage in interactive lessons that adapt to your learning style and pace. 📖📝</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">🎙️</div>
+        <h3 class="feature-title">Speech Recognition</h3>
+        <p class="feature-description">Perfect your pronunciation with advanced speech recognition technology. 🗣️🎯</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">🌐</div>
+        <h3 class="feature-title">Cultural Immersion</h3>
+        <p class="feature-description">Immerse yourself in the cultures of the languages you learn through authentic materials and experiences. 🌍🎉</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">Progress Tracking</h3>
+        <p class="feature-description">Track your progress, set goals, and celebrate your achievements along your language learning journey. 📈🏆</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">💬</div>
+        <h3 class="feature-title">Live Conversations</h3>
+        <p class="feature-description">Engage in live conversations with native speakers for practical language practice. 💬🗣️</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">📝</div>
+        <h3 class="feature-title">Writing Practice</h3>
+        <p class="feature-description">Sharpen your writing skills with AI-guided exercises and personalized feedback. ✍️📝</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">🎓</div>
+        <h3 class="feature-title">Certification</h3>
+        <p class="feature-description">Earn language proficiency certificates recognized worldwide upon completion. 🎓🌍</p>
+      </div>
+    </div>
+  </main>
 
-        const levels = [
-            {
-                level: 1,
-                questions: [
-                    {
-                        question: "What is the Chinese word for 'hello'?",
-                        emoji: "👋",
-                        options: {
-                            a: "你好 (Nǐ hǎo)",
-                            b: "再见 (Zàijiàn)",
-                            c: "谢谢 (Xièxiè)",
-                            d: "对不起 (Duìbùqǐ)"
-                        },
-                        answer: "a"
-                    },
-                    {
-                        teaching: true,
-                        lesson: "Great job! You've learned some basic greetings. Let's proceed to the quiz questions. Keep practicing!",
-                        teachingContent: []
-                    },
-                    {
-                        question: "What is the Chinese word for 'goodbye'?",
-                        emoji: "👋",
-                        options: {
-                            a: "再见 (Zàijiàn)",
-                            b: "你好 (Nǐ hǎo)",
-                            c: "谢谢 (Xièxiè)",
-                            d: "对不起 (Duìbùqǐ)"
-                        },
-                        answer: "a"
-                    }
-                ]
-            },
-            {
-                level: 2,
-                questions: [
-                    {
-                        question: "What is the Chinese word for 'thank you'?",
-                        emoji: "🙏",
-                        options: {
-                            a: "你好 (Nǐ hǎo)",
-                            b: "再见 (Zàijiàn)",
-                            c: "谢谢 (Xièxiè)",
-                            d: "对不起 (Duìbùqǐ)"
-                        },
-                        answer: "c"
-                    },
-                    {
-                        question: "How do you say 'excuse me' in Chinese?",
-                        emoji: "🙏",
-                        options: {
-                            a: "再见 (Zàijiàn)",
-                            b: "你好 (Nǐ hǎo)",
-                            c: "对不起 (Duìbùqǐ)",
-                            d: "请问 (Qǐng wèn)"
-                        },
-                        answer: "d"
-                    },
-                    {
-                        teaching: true,
-                        lesson: "Let's learn some more words in Chinese. Repeat after me:",
-                        teachingContent: [
-                            "朋友 (Péngyǒu) - Friend",
-                            "家 (Jiā) - Home",
-                            "学校 (Xuéxiào) - School",
-                            "老师 (Lǎoshī) - Teacher",
-                            "学生 (Xuéshēng) - Student",
-                            "书 (Shū) - Book",
-                            "猫 (Māo) - Cat",
-                            "狗 (Gǒu) - Dog",
-                            "水 (Shuǐ) - Water",
-                            "食物 (Shíwù) - Food"
-                        ]
-                    },
-                    {
-                        question: "What is the Chinese word for 'water'?",
-                        emoji: "💧",
-                        options: {
-                            a: "你好 (Nǐ hǎo)",
-                            b: "学校 (Xuéxiào)",
-                            c: "水 (Shuǐ)",
-                            d: "谢谢 (Xièxiè)"
-                        },
-                        answer: "c"
-                    },
-                    {
-                        teaching: true,
-                        lesson: "Fantastic progress! Let's learn some more useful phrases in Chinese. Repeat after me:",
-                        teachingContent: [
-                            "请问 (Qǐng wèn) - Excuse me",
-                            "我不懂 (Wǒ bù dǒng) - I don't understand",
-                            "对不起 (Duìbùqǐ) - Sorry",
-                            "没关系 (Méi guānxi) - It's okay",
-                            "多少钱 (Duōshǎo qián) - How much is it?",
-                            "我要 (Wǒ yào) - I want",
-                            "谢谢你 (Xièxiè nǐ) - Thank you",
-                            "请给我 (Qǐng gěi wǒ) - Please give me",
-                            "我会说英语 (Wǒ huì shuō Yīngyǔ) - I can speak English",
-                            "你叫什么名字？ (Nǐ jiào shénme míngzì?) - What is your name?"
-                        ]
-                    },
-                    {
-                        question: "What is the Chinese word for 'friend'?",
-                        emoji: "👫",
-                        options: {
-                            a: "你好 (Nǐ hǎo)",
-                            b: "家 (Jiā)",
-                            c: "朋友 (Péngyǒu)",
-                            d: "书 (Shū)"
-                        },
-                        answer: "c"
-                    },
-                    {
-                        teaching: true,
-                        lesson: "Great job! Let's continue learning more words in Chinese. Repeat after me:",
-                        teachingContent: [
-                            "爱 (Ài) - Love",
-                            "家人 (Jiārén) - Family",
-                            "时间 (Shíjiān) - Time",
-                            "工作 (Gōngzuò) - Work",
-                            "天气 (Tiānqì) - Weather",
-                            "电影 (Diànyǐng) - Movie",
-                            "吃饭 (Chīfàn) - Eat",
-                            "喝水 (Hē shuǐ) - Drink water",
-                            "看书 (Kàn shū) - Read books",
-                            "写字 (Xiě zì) - Write"
-                        ]
-                    },
-                    {
-                        question: "What is the Chinese word for 'book'?",
-                        emoji: "📚",
-                        options: {
-                            a: "你好 (Nǐ hǎo)",
-                            b: "书 (Shū)",
-                            c: "学校 (Xuéxiào)",
-                            d: "猫 (Māo)"
-                        },
-                        answer: "b"
-                    }
-                ]
-            },
-            {
-                level: 3,
-                questions: [
-                    {
-                        question: "What is the synonym for 'sorry' (对不起的同义词是什么)?",
-                        emoji: "😔",
-                        options: {
-                            a: "你好 (Nǐ hǎo)",
-                            b: "请问 (Qǐng wèn)",
-                            c: "对不起 (Duìbùqǐ)",
-                            d: "谢谢你 (Xièxiè nǐ)"
-                        },
-                        answer: "c"
-                    },
-                    {
-                        question: "How do you say 'good' in Chinese ('好'用中文怎么说)?",
-                        emoji: "👍",
-                        options: {
-                            a: "对不起 (Duìbùqǐ)",
-                            b: "好 (Hǎo)",
-                            c: "谢谢 (Xièxiè)",
-                            d: "学校 (Xuéxiào)"
-                        },
-                        answer: "b"
-                    },
-                    {
-                        teaching: true,
-                        lesson: "Let's learn some more words in Chinese. Repeat after me:",
-                        teachingContent: [
-                            "漂亮 (Piàoliang) - Beautiful",
-                            "高兴 (Gāoxìng) - Happy",
-                            "悲伤 (Bēishāng) - Sad",
-                            "冷 (Lěng) - Cold",
-                            "热 (Rè) - Hot",
-                            "快乐 (Kuàilè) - Joyful",
-                            "忙 (Máng) - Busy",
-                            "懒 (Lǎn) - Lazy",
-                            "忧虑 (Yōulǜ) - Worried",
-                            "痛苦 (Tòngkǔ) - Painful"
-                        ]
-                    },
-                    {
-                        question: "What is the Chinese word for 'happy'?",
-                        emoji: "😄",
-                        options: {
-                            a: "漂亮 (Piàoliang)",
-                            b: "高兴 (Gāoxìng)",
-                            c: "悲伤 (Bēishāng)",
-                            d: "快乐 (Kuàilè)"
-                        },
-                        answer: "b"
-                    },
-                    {
-                        teaching: true,
-                        lesson: "Well done! Let's learn some more phrases in Chinese. Repeat after me:",
-                        teachingContent: [
-                            "现在几点？ (Xiànzài jǐ diǎn?) - What time is it now?",
-                            "我爱你 (Wǒ ài nǐ) - I love you",
-                            "明天见 (Míngtiān jiàn) - See you tomorrow",
-                            "我会说汉语 (Wǒ huì shuō Hànyǔ) - I can speak Chinese",
-                            "好好学习，天天向上 (Hǎo hǎo xuéxí, tiāntiān xiàngshàng) - Study hard and make progress every day",
-                            "你是我的好朋友 (Nǐ shì wǒ de hǎo péngyǒu) - You are my good friend",
-                            "祝你生日快乐 (Zhù nǐ shēngrì kuàilè) - Happy birthday to you",
-                            "祝你好运 (Zhù nǐ hǎo yùn) - Good luck to you",
-                            "请给我一杯水 (Qǐng gěi wǒ yībēi shuǐ) - Please give me a glass of water",
-                            "我不喜欢吃西瓜 (Wǒ bù xǐhuān chī xīguā) - I don't like to eat watermelon"
-                        ]
-                    },
-                    {
-                        question: "What is the Chinese word for 'love'?",
-                        emoji: "❤️",
-                        options: {
-                            a: "懒 (Lǎn)",
-                            b: "快乐 (Kuàilè)",
-                            c: "爱 (Ài)",
-                            d: "对不起 (Duìbùqǐ)"
-                        },
-                        answer: "c"
-                    },
-                    {
-                        question: "How do you say 'tomorrow' in Chinese?",
-                        emoji: "📆",
-                        options: {
-                            a: "对不起 (Duìbùqǐ)",
-                            b: "明天见 (Míngtiān jiàn)",
-                            c: "请问 (Qǐng wèn)",
-                            d: "爱 (Ài)"
-                        },
-                        answer: "b"
-                    },
-                    {
-                        teaching: true,
-                        lesson: "Amazing progress! Let's learn some more advanced words in Chinese. Repeat after me:",
-                        teachingContent: [
-                            "车 (Chē) - Car",
-                            "火车 (Huǒchē) - Train",
-                            "飞机 (Fēijī) - Airplane",
-                            "地铁 (Dìtiě) - Subway",
-                            "酒店 (Jiǔdiàn) - Hotel",
-                            "医院 (Yīyuàn) - Hospital",
-                            "银行 (Yínháng) - Bank",
-                            "商店 (Shāngdiàn) - Shop",
-                            "美食 (Měishí) - Delicious food",
-                            "电视 (Diànshì) - Television"
-                        ]
-                    },
-                    {
-                        question: "What is the Chinese word for 'car'?",
-                        emoji: "🚗",
-                        options: {
-                            a: "车 (Chē)",
-                            b: "飞机 (Fēijī)",
-                            c: "火车 (Huǒchē)",
-                            d: "地铁 (Dìtiě)"
-                        },
-                        answer: "a"
-                    },
-                    {
-                        teaching: true,
-                        lesson: "Excellent work! Let's learn some more sentences in Chinese. Repeat after me:",
-                        teachingContent: [
-                            "我想吃中国菜 (Wǒ xiǎng chī Zhōngguó cài) - I want to eat Chinese food",
-                            "请帮我找一家好的酒店 (Qǐng bāng wǒ zhǎo yī jiā hǎo de jiǔdiàn) - Please help me find a good hotel",
-                            "今天的天气很好 (Jīntiān de tiānqì hěn hǎo) - The weather is very good today",
-                            "我明天要去机场 (Wǒ míngtiān yào qù jīchǎng) - I am going to the airport tomorrow",
-                            "我喜欢看电影 (Wǒ xǐhuān kàn diànyǐng) - I like to watch movies",
-                            "你可以帮我吗？ (Nǐ kěyǐ bāng wǒ ma?) - Can you help me?",
-                            "这个汉字怎么读？ (Zhège Hànzì zěnme dú?) - How do you read this Chinese character?",
-                            "我们一起学习中文 (Wǒmen yīqǐ xuéxí Zhōngwén) - Let's learn Chinese together",
-                            "我很高兴认识你 (Wǒ hěn gāoxìng rènshì nǐ) - I'm glad to meet you",
-                            "我明天有很多工作要做 (Wǒ míngtiān yǒu hěnduō gōngzuò yào zuò) - I have a lot of work to do tomorrow"
-                        ]
-                    },
-                    {
-                        question: "What is the Chinese word for 'hotel'?",
-                        emoji: "🏨",
-                        options: {
-                            a: "银行 (Yínháng)",
-                            b: "商店 (Shāngdiàn)",
-                            c: "火车 (Huǒchē)",
-                            d: "酒店 (Jiǔdiàn)"
-                        },
-                        answer: "d"
-                    }
-                ]
-            },
-            {
-                level: 4,
-                questions: [
-                    {
-                        question: "How do you say 'I am hungry' in Chinese?",
-                        emoji: "🍴",
-                        options: {
-                            a: "我喜欢看电影 (Wǒ xǐhuān kàn diànyǐng)",
-                            b: "我明天有很多工作要做 (Wǒ míngtiān yǒu hěnduō gōngzuò yào zuò)",
-                            c: "我想吃中国菜 (Wǒ xiǎng chī Zhōngguó cài)",
-                            d: "我饿了 (Wǒ èle)"
-                        },
-                        answer: "d"
-                    },
-                    {
-                        question: "What is the Chinese word for 'happy birthday'?",
-                        emoji: "🎂",
-                        options: {
-                            a: "我们一起学习中文 (Wǒmen yīqǐ xuéxí Zhōngwén)",
-                            b: "我很高兴认识你 (Wǒ hěn gāoxìng rènshì nǐ)",
-                            c: "祝你生日快乐 (Zhù nǐ shēngrì kuàilè)",
-                            d: "这个汉字怎么读？ (Zhège Hànzì zěnme dú?)"
-                        },
-                        answer: "c"
-                    },
-                    {
-                        question: "What is the Chinese word for 'dog'?",
-                        emoji: "🐶",
-                        options: {
-                            a: "狗 (Gǒu)",
-                            b: "猫 (Māo)",
-                            c: "书 (Shū)",
-                            d: "飞机 (Fēijī)"
-                        },
-                        answer: "a"
-                    }
-                ]
-            },
-            {
-                level: 5,
-                questions: [
-                    {
-                        question: "What is the Chinese word for 'study'?",
-                        emoji: "📚",
-                        options: {
-                            a: "写字 (Xiě zì)",
-                            b: "悲伤 (Bēishāng)",
-                            c: "工作 (Gōngzuò)",
-                            d: "学习 (Xuéxí)"
-                        },
-                        answer: "d"
-                    },
-                    {
-                        question: "What is the Chinese word for 'watch TV'?",
-                        emoji: "📺",
-                        options: {
-                            a: "吃饭 (Chīfàn)",
-                            b: "看电影 (Kàn diànyǐng)",
-                            c: "快乐 (Kuàilè)",
-                            d: "看电视 (Kàn diànshì)"
-                        },
-                        answer: "d"
-                    },
-                    {
-                        question: "What is the Chinese word for 'read a book'?",
-                        emoji: "📖",
-                        options: {
-                            a: "喝水 (Hē shuǐ)",
-                            b: "看电视 (Kàn diànshì)",
-                            c: "写字 (Xiě zì)",
-                            d: "看书 (Kàn shū)"
-                        },
-                        answer: "d"
-                    }
-                ]
-            },
-            {
-                level: 6,
-                questions: [
-                    {
-                        question: "What is the Chinese word for 'food'?",
-                        emoji: "🍲",
-                        options: {
-                            a: "美食 (Měishí)",
-                            b: "飞机 (Fēijī)",
-                            c: "酒店 (Jiǔdiàn)",
-                            d: "火车 (Huǒchē)"
-                        },
-                        answer: "a"
-                    },
-                    {
-                        question: "What is the Chinese word for 'airplane'?",
-                        emoji: "✈️",
-                        options: {
-                            a: "地铁 (Dìtiě)",
-                            b: "飞机 (Fēijī)",
-                            c: "火车 (Huǒchē)",
-                            d: "学校 (Xuéxiào)"
-                        },
-                        answer: "b"
-                    },
-                    {
-                        question: "What is the Chinese word for 'subway'?",
-                        emoji: "🚇",
-                        options: {
-                            a: "银行 (Yínháng)",
-                            b: "商店 (Shāngdiàn)",
-                            c: "地铁 (Dìtiě)",
-                            d: "酒店 (Jiǔdiàn)"
-                        },
-                        answer: "c"
-                    }
-                ]
-            }
-        ];
-
-        let currentLevel = 0;
-        let currentQuestion = 0;
-        let score = 0;
-
-        const questionTextElement = document.getElementById("questionText");
-        const emojiElement = document.querySelector(".emoji");
-        const optionsContainer = document.querySelector(".options");
-        const scoreTextElement = document.getElementById("scoreText");
-        const nextButton = document.getElementById("nextButton");
-        const characterElement = document.querySelector(".character");
-
-        function showQuestion(levelIndex, questionIndex) {
-            const currentLevelData = levels[levelIndex];
-            const currentQuestionData = currentLevelData.questions[questionIndex];
-            questionTextElement.textContent = currentQuestionData.question;
-            emojiElement.textContent = currentQuestionData.emoji;
-
-            optionsContainer.innerHTML = "";
-            Object.entries(currentQuestionData.options).forEach(([option, value]) => {
-                const button = document.createElement("button");
-                button.textContent = value;
-                button.addEventListener("click", () => checkAnswer(option));
-                optionsContainer.appendChild(button);
-            });
-
-            if (currentQuestionData.teaching) {
-                characterElement.style.backgroundImage = "url('character-teaching.png')"; // Replace with teaching character image
-            } else {
-                characterElement.style.backgroundImage = "url('character.png')"; // Replace with normal character image
-            }
-        }
-
-        function checkAnswer(selectedOption) {
-            const currentQuestionData = levels[currentLevel].questions[currentQuestion];
-            const correctAnswer = currentQuestionData.answer;
-
-            if (selectedOption === correctAnswer) {
-                score++;
-            }
-
-            const options = optionsContainer.querySelectorAll("button");
-            options.forEach((option) => {
-                option.disabled = true;
-                if (option.textContent === currentQuestionData.options[correctAnswer]) {
-                    option.style.backgroundColor = "#4caf50"; // Correct answer - Green
-                } else if (option.textContent === currentQuestionData.options[selectedOption]) {
-                    option.style.backgroundColor = "#f44336"; // Selected answer - Red
-                }
-            });
-
-            scoreTextElement.textContent = `Score: ${score} / ${currentQuestion + 1}`;
-            nextButton.style.display = "block";
-            nextButton.disabled = false;
-
-            if (currentQuestion === levels[currentLevel].questions.length - 1) {
-                nextButton.textContent = "Next Level";
-            } else {
-                nextButton.textContent = "Next";
-            }
-        }
-
-        function nextQuestion() {
-            const currentLevelData = levels[currentLevel];
-            const nextQuestionIndex = currentQuestion + 1;
-
-            if (nextQuestionIndex < currentLevelData.questions.length) {
-                currentQuestion = nextQuestionIndex;
-                showQuestion(currentLevel, currentQuestion);
-            } else {
-                if (currentLevel === levels.length - 1) {
-                    // Quiz completed
-                    showResult();
-                } else {
-                    currentLevel++;
-                    currentQuestion = 0;
-                    showQuestion(currentLevel, currentQuestion);
-                }
-            }
-
-            nextButton.style.display = "none";
-            const options = optionsContainer.querySelectorAll("button");
-            options.forEach((option) => {
-                option.disabled = false;
-                option.style.backgroundColor = "#00bfa5"; // Reset button color to default
-            });
-        }
-
-        function showResult() {
-            const container = document.querySelector(".container");
-            container.innerHTML = `
-                <h1>Congratulations!</h1>
-                <p>You have completed the Chinese language quiz.</p>
-                <p>Your final score is: ${score} / ${totalQuestions}</p>
-                <button onclick="restartQuiz()">Restart Quiz</button>
-            `;
-        }
-
-        function restartQuiz() {
-            currentLevel = 0;
-            currentQuestion = 0;
-            score = 0;
-            const container = document.querySelector(".container");
-            container.innerHTML = `
-                <h1>Learn Chinese Quiz</h1>
-                <div class="question-container">
-                    <p id="questionText"></p>
-                    <p class="emoji"></p>
-                    <div class="options"></div>
-                    <button id="nextButton" onclick="nextQuestion()">Next</button>
-                    <p id="scoreText">Score: 0 / 0</p>
-                </div>
-                <div class="character"></div>
-            `;
-            showQuestion(currentLevel, currentQuestion);
-        }
-
-        showQuestion(currentLevel, currentQuestion);
-    </script>
+  <footer>
+    <p>&copy; 2023 Aié. All rights reserved.</p>
+  </footer>
 </body>
 </html>
