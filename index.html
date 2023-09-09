@@ -1,543 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aié</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <style>
-    /* General Styling */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversa</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333333;
+        }
 
-    /* Header Styling */
-    header {
-      background-color: #00bfa5;
-      padding: 20px;
-      text-align: center;
-    }
+        .navigation {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+        }
 
-    .logo {
-      display: inline-block;
-      margin: 0;
-      color: #fff;
-      font-size: 28px;
-      font-weight: bold;
-      text-decoration: none;
-    }
+        .navigation-logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+        }
 
-    /* Main Content Styling */
-    main {
-      background-color: #ffffff;
-      padding: 40px;
-      text-align: center;
-    }
+        .navigation-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
 
-    h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-      color: #333;
-    }
+        .navigation-links li a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #000000;
+            transition: color 0.3s;
+        }
 
-    p {
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: #555;
-    }
+        .navigation-links li a:hover {
+            color: #808080;
+        }
 
-    .cta-button {
-      display: inline-block;
-      background-color: #00bfa5;
-      color: #fff;
-      padding: 12px 32px;
-      border-radius: 4px;
-      font-size: 24px;
-      text-decoration: none;
-      transition: background 0.3s ease;
-    }
+        .welcome {
+            text-align: center;
+            padding: 150px 0;
+            color: #000000;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
 
-    .cta-button:hover {
-      background-color: #009c84;
-    }
+        .welcome h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
 
-    /* Language Options Styling */
-    .language-options {
-      margin-top: 60px;
-    }
+        .welcome p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
 
-    h3 {
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: #333;
-    }
+        .cta-button {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+        .cta-button:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
 
-    li {
-      margin: 10px;
-    }
+        .section {
+            padding: 80px 0;
+            text-align: center;
+        }
 
-    .language-link {
-      display: inline-block;
-      background-color: #00bfa5;
-      color: #fff;
-      padding: 10px 24px;
-      border-radius: 4px;
-      font-size: 20px;
-      text-decoration: none;
-      transition: background 0.3s ease;
-    }
+        .section h2 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
 
-    .language-link:hover {
-      background-color: #009c84;
-    }
+        .section p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
 
-    /* Additional Content Styling */
-    .additional-content {
-      margin-top: 80px;
-      text-align: left;
-    }
+        .explanation-item {
+            margin-bottom: 30px;
+        }
 
-    h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      color: #333;
-    }
+        .explanation-topic {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
 
-    .feature {
-      display: flex;
-      align-items: center;
-      margin-bottom: 30px;
-    }
+        .explanation-text {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #808080;
+        }
 
-    .feature-icon {
-      width: 60px;
-      height: 60px;
-      background-color: #00bfa5;
-      color: #fff;
-      font-size: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      margin-right: 20px;
-    }
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #f5f5f5;
+        }
 
-    .feature-text {
-      font-size: 20px;
-      color: #555;
-    }
+        footer p {
+            font-size: 16px;
+            color: #808080;
+        }
 
-    /* Quiz Styling */
-    .quiz {
-      margin-top: 80px;
-      text-align: left;
-    }
-
-    .quiz-question {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .quiz-options {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .quiz-option {
-      font-size: 20px;
-      color: #555;
-      margin-bottom: 5px;
-    }
-
-    .quiz-option input {
-      margin-right: 10px;
-    }
-
-    /* Testimonials Styling */
-    .testimonials {
-      margin-top: 80px;
-      text-align: center;
-    }
-
-    .testimonial {
-      margin-bottom: 40px;
-    }
-
-    .testimonial-text {
-      font-size: 20px;
-      color: #555;
-      margin-bottom: 10px;
-    }
-
-    .testimonial-author {
-      font-size: 18px;
-      color: #777;
-    }
-
-    /* Special Features Styling */
-    .special-features {
-      margin-top: 80px;
-      text-align: center;
-    }
-
-    .feature-box {
-      display: inline-block;
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      margin: 20px;
-      transition: transform 0.3s ease;
-    }
-
-    .feature-box:hover {
-      transform: translateY(-10px);
-    }
-
-    .feature-icon {
-      width: 80px;
-      height: 80px;
-      background-color: #00bfa5;
-      color: #fff;
-      font-size: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      margin-bottom: 20px;
-    }
-
-    .feature-title {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .feature-description {
-      font-size: 18px;
-      color: #555;
-    }
-
-    /* Footer Styling */
-    footer {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-
-    footer p {
-      margin: 0;
-      font-size: 14px;
-    }
-    .intro-section {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, #00bfa5, rgb(0, 175, 152));
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 0.5s ease-in-out;
-    }
-    
-    .logo {
-      max-width: 200px;
-      max-height: 200px;
-    }
-    
-    .intro-section.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* Reviews Styling */
-    .reviews {
-      margin-top: 80px;
-      text-align: center;
-    }
-
-    .review-card {
-      background-color: #f9f9f9;
-      padding: 30px;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      margin: 20px;
-      transition: transform 0.3s ease;
-    }
-
-    .review-card:hover {
-      transform: translateY(-10px);
-    }
-
-    .review-text {
-      font-size: 20px;
-      color: #555;
-      margin-bottom: 10px;
-    }
-
-    .review-author {
-      font-size: 18px;
-      color: #777;
-    }
-  </style>
+        /* ... (other styles) ... */
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="intro-section">
-    <img src="your-logo.png" alt="Logo" class="logo">
-  </div>
-
-  <header>
-    <a href="#" class="logo">
-      <img src="your-logo.png" alt="Aié Logo" style="vertical-align: middle; height: 40px;">
-    </a>
-  </header>
-  <Script>
-    // Function to hide the intro section after a certain duration
-function hideIntroSection() {
-  const introSection = document.querySelector('.intro-section');
-  introSection.classList.add('hide');
-}
-
-// Hide the intro section after 5 seconds (5000 milliseconds)
-setTimeout(hideIntroSection, 5000);
-
-  </Script>
-
-  <main>
-    <h1>Learn Languages with AI</h1>
-    <p>Unlock the power of Aié and embark on a journey of language mastery. Our AI-powered platform offers personalized lessons, cutting-edge technology, and a diverse range of languages to empower you to communicate fluently. 🌐✨</p>
-    <a href="#" class="cta-button">Start Learning Now 🚀</a>
-
-    <div class="language-options">
-      <h3>Choose a Language to Learn:</h3>
-      <ul>
-        <li><a href="https://arc690.github.io/english-quiz/" class="language-link">English</a></li>
-        <li><a href="https://arc690.github.io/Aie/" class="language-link">Hindi</a></li>
-        <li><a href="https://arc690.github.io/spanish-quiz/" class="language-link">Spanish</a></li>
-        <li><a href="https://arc690.github.io/french-quiz/" class="language-link">French</a></li>
-        <li><a href="https://arc690.github.io/german-quiz/" class="language-link">German</a></li>
-        <li><a href="https://arc690.github.io/italien-quiz/" class="language-link">Italian</a></li>
-        <li><a href="https://arc690.github.io/japanese-quiz/" class="language-link">Japanese</a></li>
-        <li><a href="https://arc690.github.io/Chinese-quiz/" class="language-link">Chinese</a></li>
-        <li><a href="https://arc690.github.io/russian-quiz/" class="language-link">Russian</a></li>
-        
-        <li><a href="https://arc690.github.io/portugal-quiz/" class="language-link">Portuguese</a></li>
-        <li><a href="https://arc690.github.io/Dutch-Quiz/" class="language-link">Dutch</a></li>
-        <li><a href="https://www.example.com/swedish" class="language-link">Swedish</a></li>
-        <li><a href="https://www.example.com/korean" class="language-link">Korean</a></li>
-        
-      </ul>
-    </div>
-    <style>
-      /* ... (existing styles) ... */
-  
-      /* Daily Quiz Styling */
-      .daily-quiz {
-        margin-top: 80px;
-        text-align: center;
-      }
-  
-      .quiz-heading {
-        font-size: 36px;
-        margin-bottom: 20px;
-        color: #333;
-      }
-  
-      .quiz-text {
-        font-size: 24px;
-        color: #555;
-        margin-bottom: 20px;
-      }
-  
-      .quiz-emoji {
-        font-size: 48px;
-      }
-      @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-    </style>
-  </head>
-  <body>
-    <!-- ... (existing content) ... -->
-  
-    <div class="daily-quiz">
-      <h2 class="quiz-heading">Daily Language Quiz</h2>
-      <p class="quiz-text">Challenge yourself with a new quiz every day for all languages! 🌟📆</p>
-      <p class="quiz-emoji">🎉🤓🚀</p>
-    </div>
-  
-    <div class="botty">
-      <img src="botty.png"></img>
-    </div>
-  
-
-    <div class="additional-content">
-      <h2>Why Choose Aié?</h2>
-      <div class="feature">
-        <div class="feature-icon">✨</div>
-        <div class="feature-text">Experience AI-powered learning algorithms for personalized lessons tailored to your needs. 💡</div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🌍</div>
-        <div class="feature-text">Explore a vast selection of languages from around the world, opening doors to diverse cultures. 🌎🗺️</div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🔊</div>
-        <div class="feature-text">Improve your pronunciation skills with cutting-edge speech recognition technology. 🎙️🗣️</div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🏆</div>
-        <div class="feature-text">Track your progress, earn achievements, and embark on a gamified language learning adventure. 🎮🏅</div>
-      </div>
+    <div class="navigation">
+        <div class="navigation-logo">Conversa</div>
+        <ul class="navigation-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#languages">Languages</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </div>
 
-    <div class="quiz">
-      <h2>Test Your Language Skills</h2>
-      <p class="quiz-question">Translate the following phrase into French:</p>
-      <ul class="quiz-options">
-        <li class="quiz-option">
-          <input type="radio" name="quiz1" id="quiz1-option1">
-          <label for="quiz1-option1">Hello</label>
-        </li>
-        <li class="quiz-option">
-          <input type="radio" name="quiz1" id="quiz1-option2">
-          <label for="quiz1-option2">Goodbye</label>
-        </li>
-        <li class="quiz-option">
-          <input type="radio" name="quiz1" id="quiz1-option3">
-          <label for="quiz1-option3">Thank you</label>
-        </li>
-        <li class="quiz-option">
-          <input type="radio" name="quiz1" id="quiz1-option4">
-          <label for="quiz1-option4">I love you</label>
-        </li>
-      </ul>
+    <div class="welcome">
+        <h1>Unlock Your Language Potential with Conversa</h1>
+        <p>Your Personalized Language Learning Journey Awaits</p>
+        <button class="cta-button" onclick="window.location.href='https://www.example.com'">Start Learning</button>
     </div>
 
-    <div class="testimonials">
-      <h2>What Our Learners Say</h2>
-      <div class="testimonial">
-        <p class="testimonial-text">"Aié helped me gain confidence in speaking English fluently. The personalized feedback and interactive lessons made a huge difference!"</p>
-        <p class="testimonial-author">- Sarah, English learner</p>
-      </div>
-      <div class="testimonial">
-        <p class="testimonial-text">"Learning Spanish with Aié has been an incredible experience. The engaging content and real-life practice scenarios have made me fall in love with the language!"</p>
-        <p class="testimonial-author">- Juan, Spanish learner</p>
-      </div>
+    <div class="container">
+        <section id="about" class="section">
+            <h2>About Conversa</h2>
+            <p>Empower yourself with Conversa, an AI-powered language learning platform that tailors to your preferences and accelerates your progress.</p>
+            <div class="explanation-item">
+                <p class="explanation-topic">Adaptive Learning</p>
+                <p class="explanation-text">Our advanced AI adapts lessons to your learning style, ensuring an engaging and efficient experience.</p>
+            </div>
+            <div class="explanation-item">
+                <p class="explanation-topic">Interactive Conversations</p>
+                <p class="explanation-text">Engage in realistic conversations to enhance your speaking skills and build confidence.</p>
+            </div>
+            <div class="explanation-item">
+                <p class="explanation-topic">Endless Learning Paths</p>
+                <p class="explanation-text">Whether you're a beginner or an advanced learner, Conversa has the perfect path for you.</p>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <h2>Features</h2>
+            <p>Explore the features that make Conversa the ultimate language learning companion.</p>
+            <div class="explanation-item">
+                <p class="explanation-topic">Smart Progress Tracking</p>
+                <p class="explanation-text">Track your progress and receive personalized recommendations for continuous improvement.</p>
+            </div>
+            <div class="explanation-item">
+                <p class="explanation-topic">Cultural Insights</p>
+                <p class="explanation-text">Learn about cultures through language, gaining a deeper appreciation for diversity.</p>
+            </div>
+            <div class="explanation-item">
+                <p class="explanation-topic">Real-time Assistance</p>
+                <p class="explanation-text">Receive real-time feedback and assistance as you navigate your language journey.</p>
+            </div>
+        </section>
+
+        <section id="languages" class="section">
+            <h2>Languages</h2>
+            <p>Embark on a linguistic adventure with Conversa's extensive language offerings.</p>
+            <div class="explanation-item">
+                <p class="explanation-topic">Spanish</p>
+                <p class="explanation-text">Master the language of romance and open doors to vibrant Spanish-speaking cultures.</p>
+            </div>
+            <div class="explanation-item">
+                <p class="explanation-topic">Mandarin</p>
+                <p class="explanation-text">Immerse yourself in the beauty and complexity of the Mandarin language.</p>
+            </div>
+            <div class="explanation-item">
+                <p class="explanation-topic">French</p>
+                <p class="explanation-text">Discover the elegance of French, enriching your linguistic and cultural horizons.</p>
+            </div>
+        </section>
+
+        <section id="pricing" class="section">
+            <h2>Pricing</h2>
+            <p>Choose a plan that aligns with your learning goals and aspirations.</p>
+            <div class="explanation-item">
+                <p class="explanation-topic">Basic Plan</p>
+                <p class="explanation-text">Access foundational lessons and get started on your language journey.</p>
+            </div>
+            <div class="explanation-item">
+                <p class="explanation-topic">Premium Plan</p>
+                <p class="explanation-text">Unlock advanced features, personalized coaching, and cultural insights.</p>
+            </div>
+            <div class="explanation-item">
+                <p class="explanation-topic">Family Plan</p>
+                <p class="explanation-text">Share the language learning experience with your loved ones under one subscription.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contact Us</h2>
+            <p>We're here to assist you on your language learning journey. Reach out to us today!</p>
+            <div class="explanation-item">
+                <p class="explanation-topic">24/7 Support</p>
+                <p class="explanation-text">Our dedicated support team is available around the clock to answer your queries.</p>
+            </div>
+            <div class="explanation-item">
+                <p class="explanation-topic">Community Forum</p>
+                <p class="explanation-text">Connect with fellow learners, share experiences, and seek guidance in our vibrant community forum.</p>
+            </div>
+        </section>
     </div>
 
-    <div class="reviews">
-      <h2>Reviews</h2>
-      <div class="review-card">
-        <p class="review-text">"Aié is an amazing platform. The lessons are fun and interactive, and the AI technology provides personalized guidance that accelerates learning. Highly recommended!"</p>
-        <p class="review-author">- Emily, English learner</p>
-      </div>
-      <div class="review-card">
-        <p class="review-text">"I have tried many language learning apps, but Aié stands out from the rest. The speech recognition feature helped me improve my pronunciation, and the cultural immersion aspect made the learning experience truly enjoyable."</p>
-        <p class="review-author">- Marco, Italian learner</p>
-      </div>
-      <div class="review-card">
-        <p class="review-text">"Aié's progress tracking feature is fantastic. It helps me stay motivated and see how far I've come. The gamified approach to learning makes it feel like an adventure rather than a chore."</p>
-        <p class="review-author">- Kim, Korean learner</p>
-      </div>
-      <div class="review-card">
-        <p class="review-text">"I'm amazed by Aié's interactive lessons. The platform adapts to my learning style and provides real-time feedback. It feels like having a personal language tutor at my fingertips!"</p>
-        <p class="review-author">- Alex, Spanish learner</p>
-      </div>
-      <div class="review-card">
-        <p class="review-text">"Aié's cultural immersion feature allows me to explore different cultures while learning a new language. It's fascinating to dive into authentic materials and gain a deeper understanding of the language."</p>
-        <p class="review-author">- Sofia, French learner</p>
-      </div>
-      <div class="review-card">
-        <p class="review-text">"As a beginner in German, I found Aié to be an excellent platform. The step-by-step lessons and clear explanations helped me grasp the basics quickly. I'm excited to continue my language learning journey with Aié!"</p>
-        <p class="review-author">- Max, German learner</p>
-      </div>
-      <div class="review-card">
-        <p class="review-text">"Aié's writing practice feature has been instrumental in improving my language skills. The AI-guided exercises and detailed feedback have helped me become more confident in expressing myself in a foreign language."</p>
-        <p class="review-author">- Maria, Portuguese learner</p>
-      </div>
-      <div class="review-card">
-        <p class="review-text">"I can't recommend Aié enough. The platform has made learning a new language an enjoyable part of my daily routine. The variety of languages offered and the quality of the content are exceptional."</p>
-        <p class="review-author">- Oliver, Dutch learner</p>
-      </div>
-      <div class="review-card">
-        <p class="review-text">"Aié's live conversations feature has given me the opportunity to practice speaking with native speakers. It has tremendously improved my language skills and boosted my confidence in real-life conversations."</p>
-        <p class="review-author">- Emma, French learner</p>
-      </div>
-      <div class="review-card">
-        <p class="review-text">"I've tried other language learning platforms, but Aié surpasses them all. The platform's AI technology provides targeted lessons and exercises that cater to my individual learning needs."</p>
-        <p class="review-author">- Luca, Italian learner</p>
-      </div>
-    </div>
-
-    <div class="special-features">
-      <h2>Special Features</h2>
-      <div class="feature-box">
-        <div class="feature-icon">📚</div>
-        <h3 class="feature-title">Interactive Lessons</h3>
-        <p class="feature-description">Engage in interactive lessons that adapt to your learning style and pace. 📖📝</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">🎙️</div>
-        <h3 class="feature-title">Speech Recognition</h3>
-        <p class="feature-description">Perfect your pronunciation with advanced speech recognition technology. 🗣️🎯</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">🌐</div>
-        <h3 class="feature-title">Cultural Immersion</h3>
-        <p class="feature-description">Immerse yourself in the cultures of the languages you learn through authentic materials and experiences. 🌍🎉</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">📊</div>
-        <h3 class="feature-title">Progress Tracking</h3>
-        <p class="feature-description">Track your progress, set goals, and celebrate your achievements along your language learning journey. 📈🏆</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">💬</div>
-        <h3 class="feature-title">Live Conversations</h3>
-        <p class="feature-description">Engage in live conversations with native speakers for practical language practice. 💬🗣️</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">📝</div>
-        <h3 class="feature-title">Writing Practice</h3>
-        <p class="feature-description">Sharpen your writing skills with AI-guided exercises and personalized feedback. ✍️📝</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">🎓</div>
-        <h3 class="feature-title">Certification</h3>
-        <p class="feature-description">Earn language proficiency certificates recognized worldwide upon completion. 🎓🌍</p>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <p>&copy; 2023 Aié. All rights reserved.</p>
-  </footer>
+    <footer>
+        <p>&copy; 2023 Conversa</p>
+    </footer>
 </body>
 </html>
